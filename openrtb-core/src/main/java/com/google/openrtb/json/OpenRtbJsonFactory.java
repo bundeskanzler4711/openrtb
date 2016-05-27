@@ -50,6 +50,7 @@ public class OpenRtbJsonFactory {
   private JsonFactory jsonFactory;
   private boolean strict;
   private boolean rootNativeField;
+  private boolean forceReadNativeAsObject;
   private final SetMultimap<String, OpenRtbJsonExtReader<?>> extReaders;
   private final Map<String, Map<String, Map<String, OpenRtbJsonExtWriter<?>>>> extWriters;
 
@@ -64,6 +65,7 @@ public class OpenRtbJsonFactory {
     this.rootNativeField = rootNativeField;
     this.extReaders = extReaders == null ? LinkedHashMultimap.create() : extReaders;
     this.extWriters = extWriters == null ? new LinkedHashMap<>() : extWriters;
+    this.forceReadNativeAsObject = false;
   }
 
   /**
@@ -243,5 +245,13 @@ public class OpenRtbJsonFactory {
       jsonFactory = new JsonFactory();
     }
     return jsonFactory;
+  }
+
+  public boolean isForceReadNativeAsObject() {
+    return forceReadNativeAsObject;
+  }
+
+  public void setForceReadNativeAsObject(final boolean aForceReadNativeAsObject) {
+    forceReadNativeAsObject = aForceReadNativeAsObject;
   }
 }

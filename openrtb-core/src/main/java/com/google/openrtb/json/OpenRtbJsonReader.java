@@ -307,11 +307,15 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
   protected void readNativeField(JsonParser par, Native.Builder nativ, String fieldName)
       throws IOException {
     switch (fieldName) {
-      case "request":
-        nativ.setRequest(par.getText());
-        break;
-      case "request_native":
-        readNativeAsObject(nativ, par);
+      case "request": {
+          OpenRtbNativeJsonReader nativeReader = factory().newNativeReader();
+          if(factory().isForceReadNativeAsObject()) {
+            nativ.setRequestNative(nativeReader.readNativeRequest(par));
+          } else {
+            nativ.setRequestNative(nativeReader.readNativeRequest(new CharArrayReader(
+                par.getTextCharacters(), par.getTextOffset(), par.getTextLength())));
+          }
+        }
         break;
       case "ver":
         nativ.setVer(par.getText());
@@ -335,11 +339,6 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
       default:
         readOther(nativ, par, fieldName);
     }
-  }
-
-  private void readNativeAsObject(Native.Builder nativ, JsonParser par) throws IOException {
-    OpenRtbNativeJsonReader nativeObjectReader = factory().newNativeReader();
-    nativ.setRequestNative(nativeObjectReader.readNativeRequest(par));
   }
 
   public final Pmp.Builder readPmp(JsonParser par) throws IOException {
@@ -1391,11 +1390,13 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
       case "nurl":
         bid.setNurl(par.getText());
         break;
-      case "adm":
-        bid.setAdm(par.getText());
-        break;
-      case "adm_native":
-        bid.setAdmNative(factory().newNativeReader().readNativeResponse(par));
+      case "adm": {
+          if(par.getCurrentToken() == JsonToken.START_OBJECT || (par.getCurrentToken() == JsonToken.VALUE_STRING && par.getText().startsWith("{"))) {
+            bid.setAdmNative(factory().newNativeReader().readNativeResponse(par));
+          } else {
+            bid.setAdm(par.getText());
+          }
+        }
         break;
       case "adomain":
         for (startArray(par); endArray(par); par.nextToken()) {
