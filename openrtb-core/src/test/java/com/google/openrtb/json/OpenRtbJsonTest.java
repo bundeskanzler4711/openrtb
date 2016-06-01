@@ -87,6 +87,12 @@ public class OpenRtbJsonTest {
   private static final Test2 test2 = Test2.newBuilder().setTest2("data2").build();
 
   @Test
+  public void testJsonGeneratedFiles() throws IOException {
+    OpenRtbJsonRequestHelper.testJsonGeneratedFiles();
+    OpenRtbJsonResponseHelper.testJsonGeneratedFiles();
+  }
+
+  @Test
   public void testJsonFactory() {
     assertThat(OpenRtbJsonFactory.create().getJsonFactory()).isNotNull();
     JsonFactory jf = new JsonFactory();

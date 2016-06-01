@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.truth.Truth.assertThat;
+
 /**
  * Test helper class, to be used for generating and comparing Json test data <p> Created by
  * sschlegel on 12/05/16.
@@ -64,6 +66,17 @@ class OpenRtbJsonResponseHelper {
   static final String RESPONSE_FULL__ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__ROOT___OBJECT.json");
 
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OpenRtbJsonResponseHelper.class);
+
+  public static void testJsonGeneratedFiles() throws IOException {
+    assertThat(generateJson(false, false, false).trim()).isEqualTo(RESPONSE_SHORT_NOROOT_STRING.trim());
+    assertThat(generateJson(false, false, true).trim()).isEqualTo(RESPONSE_SHORT_NOROOT_OBJECT.trim());
+    assertThat(generateJson(false, true, false).trim()).isEqualTo(RESPONSE_SHORT_ROOT___STRING.trim());
+    assertThat(generateJson(false, true, true).trim()).isEqualTo(RESPONSE_SHORT_ROOT___OBJECT.trim());
+    assertThat(generateJson(true, false, false).trim()).isEqualTo(RESPONSE_FULL__NOROOT_STRING.trim());
+    assertThat(generateJson(true, false, true).trim()).isEqualTo(RESPONSE_FULL__NOROOT_OBJECT.trim());
+    assertThat(generateJson(true, true, false).trim()).isEqualTo(RESPONSE_FULL__ROOT___STRING.trim());
+    assertThat(generateJson(true, true, true).trim()).isEqualTo(RESPONSE_FULL__ROOT___OBJECT.trim());
+  }
 
   public static void main(String[] args) throws IOException {
     OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_SHORT_NOROOT_STRING.json", generateJson(false, false, false));

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import static com.google.common.truth.Truth.assertThat;
 import static java.util.Arrays.asList;
 
 /**
@@ -64,6 +65,17 @@ class OpenRtbJsonRequestHelper {
 
   private static final Logger logger = LoggerFactory.getLogger(OpenRtbJsonRequestHelper.class);
 
+  public static void testJsonGeneratedFiles() throws IOException {
+    assertThat(generateJson(false, false, false).trim()).isEqualTo(REQUEST__SHORT_NOROOT_STRING.trim());
+    assertThat(generateJson(false, false, true).trim()).isEqualTo(REQUEST__SHORT_NOROOT_OBJECT.trim());
+    assertThat(generateJson(false, true, false).trim()).isEqualTo(REQUEST__SHORT_ROOT___STRING.trim());
+    assertThat(generateJson(false, true, true).trim()).isEqualTo(REQUEST__SHORT_ROOT___OBJECT.trim());
+    assertThat(generateJson(true, false, false).trim()).isEqualTo(REQUEST__FULL__NOROOT_STRING.trim());
+    assertThat(generateJson(true, false, true).trim()).isEqualTo(REQUEST__FULL__NOROOT_OBJECT.trim());
+    assertThat(generateJson(true, true, false).trim()).isEqualTo(REQUEST__FULL__ROOT___STRING.trim());
+    assertThat(generateJson(true, true, true).trim()).isEqualTo(REQUEST__FULL__ROOT___OBJECT.trim());
+  }
+
   public static void main(String[] args) throws IOException {
     OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_STRING.json", generateJson(false, false, false));
     OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json", generateJson(false, false, true));
@@ -83,7 +95,6 @@ class OpenRtbJsonRequestHelper {
     logger.info("REQUEST__FULL__ROOT___STRING: " + REQUEST__FULL__ROOT___STRING);
     logger.info("REQUEST__FULL__ROOT___OBJECT: " + REQUEST__FULL__ROOT___OBJECT);
   }
-
 
   /**
    * Json generator method, using these Parameters:
