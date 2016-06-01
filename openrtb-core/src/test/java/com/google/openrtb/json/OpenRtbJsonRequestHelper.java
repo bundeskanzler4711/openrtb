@@ -25,47 +25,47 @@ class OpenRtbJsonRequestHelper {
   /**
    * Request Json string containing <p> - native part as adm string field
    */
-  static final String REQUEST__SHORT_NOROOT_STRING = readFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_STRING.json");
+  static final String REQUEST__SHORT_NOROOT_STRING = readFile("src/test/resources/REQUEST__SHORT_NOROOT_STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object
    */
-  static final String REQUEST__SHORT_NOROOT_OBJECT = readFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json");
+  static final String REQUEST__SHORT_NOROOT_OBJECT = readFile("src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json");
 
   /**
    * Request Json string containing <p> - native part as adm string field <p> - root native enabled
    */
-  static final String REQUEST__SHORT_ROOT___STRING = readFile("openrtb-core/src/test/resources/REQUEST__SHORT_ROOT___STRING.json");
+  static final String REQUEST__SHORT_ROOT___STRING = readFile("src/test/resources/REQUEST__SHORT_ROOT___STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object <p> - root native
    * enabled
    */
-  static final String REQUEST__SHORT_ROOT___OBJECT =readFile("openrtb-core/src/test/resources/REQUEST__SHORT_ROOT___OBJECT.json");
+  static final String REQUEST__SHORT_ROOT___OBJECT =readFile("src/test/resources/REQUEST__SHORT_ROOT___OBJECT.json");
 
   /**
    * Request Json string containing <p> - native part as adm string field <p> - nearly all possible
    * fields filled
    */
-  static final String REQUEST__FULL__NOROOT_STRING =readFile("openrtb-core/src/test/resources/REQUEST__FULL__NOROOT_STRING.json");
+  static final String REQUEST__FULL__NOROOT_STRING =readFile("src/test/resources/REQUEST__FULL__NOROOT_STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object <p> - nearly all possible
    * fields filled
    */
-  static final String REQUEST__FULL__NOROOT_OBJECT =readFile("openrtb-core/src/test/resources/REQUEST__FULL__NOROOT_OBJECT.json");
+  static final String REQUEST__FULL__NOROOT_OBJECT =readFile("src/test/resources/REQUEST__FULL__NOROOT_OBJECT.json");
 
   /**
    * Request Json string <p> - containing native part as adm string field <p> - root native enabled
    * <p> - nearly all possible fields filled
    */
-  static final String REQUEST__FULL__ROOT___STRING =readFile("openrtb-core/src/test/resources/REQUEST__FULL__ROOT___STRING.json");
+  static final String REQUEST__FULL__ROOT___STRING =readFile("src/test/resources/REQUEST__FULL__ROOT___STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object <p> - root native enabled
    * <p> - nearly all possible fields filled
    */
-  static final String REQUEST__FULL__ROOT___OBJECT =readFile("openrtb-core/src/test/resources/REQUEST__FULL__ROOT___OBJECT.json");
+  static final String REQUEST__FULL__ROOT___OBJECT =readFile("src/test/resources/REQUEST__FULL__ROOT___OBJECT.json");
 
   private static final Logger logger = LoggerFactory.getLogger(OpenRtbJsonRequestHelper.class);
 

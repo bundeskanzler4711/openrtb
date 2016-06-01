@@ -1391,8 +1391,15 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
         bid.setNurl(par.getText());
         break;
       case "adm": {
-          if(par.getCurrentToken() == JsonToken.START_OBJECT || (par.getCurrentToken() == JsonToken.VALUE_STRING && par.getText().startsWith("{"))) {
+          if(par.getCurrentToken() == JsonToken.START_OBJECT) {
             bid.setAdmNative(factory().newNativeReader().readNativeResponse(par));
+          } else if (par.getCurrentToken() == JsonToken.VALUE_STRING) {
+            final String valueString = par.getText();
+            if (valueString.startsWith("{")) {
+              bid.setAdmNative(factory().newNativeReader().readNativeResponse(valueString));
+            } else {
+              bid.setAdm(valueString);
+            }
           } else {
             bid.setAdm(par.getText());
           }
