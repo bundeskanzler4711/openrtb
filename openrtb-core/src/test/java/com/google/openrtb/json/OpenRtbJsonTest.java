@@ -373,7 +373,7 @@ public class OpenRtbJsonTest {
     ObjectMapper mapper = new ObjectMapper();
     Object json = mapper.readValue(jsonRequNativeStr, Object.class);
     jsonRequNativeStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-    assertThat(jsonRequNativeStr.trim()).isEqualTo(requestString.trim());
+    assertThat(jsonRequNativeStr).isEqualTo(requestString);
   }
 
   static String testResponse(OpenRtbJsonFactory jsonFactory, BidResponse resp) throws IOException {
@@ -393,7 +393,7 @@ public class OpenRtbJsonTest {
     ObjectMapper mapper = new ObjectMapper();
     Object json = mapper.readValue(jsonRespNativeStr, Object.class);
     jsonRespNativeStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-    assertThat(jsonRespNativeStr.trim()).isEqualTo(responseString.trim());
+    assertThat(jsonRespNativeStr).isEqualTo(responseString);
   }
 
   static OpenRtbJsonFactory newJsonFactory() {

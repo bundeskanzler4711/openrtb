@@ -74,6 +74,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -308,10 +309,11 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
     switch (fieldName) {
       case "request": {
           OpenRtbNativeJsonReader nativeReader = factory().newNativeReader();
-          if(factory().isForceNativeAsObject()) {
-            nativ.setRequestNative(nativeReader.readNativeRequest(par));
+          if(par.getCurrentToken() == JsonToken.VALUE_STRING) {
+            nativ.setRequestNative(nativeReader.readNativeRequest(new CharArrayReader(
+                par.getTextCharacters(), par.getTextOffset(), par.getTextLength())));
           } else {
-            nativ.setRequestNative(nativeReader.readNativeRequest(par.getText()));
+            nativ.setRequestNative(nativeReader.readNativeRequest(par));
           }
         }
         break;
@@ -1392,14 +1394,12 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
           if(par.getCurrentToken() == JsonToken.START_OBJECT) {
             bid.setAdmNative(factory().newNativeReader().readNativeResponse(par));
           } else if (par.getCurrentToken() == JsonToken.VALUE_STRING) {
-            final String valueString = par.getText();
+            String valueString = par.getText();
             if (valueString.startsWith("{")) {
               bid.setAdmNative(factory().newNativeReader().readNativeResponse(valueString));
             } else {
               bid.setAdm(valueString);
             }
-          } else {
-            bid.setAdm(par.getText());
           }
         }
         break;

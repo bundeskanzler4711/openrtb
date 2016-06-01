@@ -376,12 +376,6 @@ public class OpenRtbJsonWriter extends AbstractOpenRtbJsonWriter {
     writeEnums("battr", nativ.getBattrList(), gen);
   }
 
-  private void writeNativeObject(final Native nativ, final JsonGenerator gen) throws IOException
-  {
-    gen.writeFieldName("request_native");
-    nativeWriter().writeNativeRequest(nativ.getRequestNative(), gen);
-  }
-
   public final void writePmp(Pmp pmp, JsonGenerator gen) throws IOException {
     gen.writeStartObject();
     writePmpFields(pmp, gen);

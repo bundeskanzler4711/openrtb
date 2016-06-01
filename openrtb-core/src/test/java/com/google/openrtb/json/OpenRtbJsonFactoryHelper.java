@@ -6,18 +6,18 @@ import com.google.openrtb.TestExt;
 
 import com.fasterxml.jackson.core.JsonFactory;
 
-import org.slf4j.LoggerFactory;
-
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  * Test helper class, to be used for generating and comparing Json test data <p> Created by
- * sschlegel on 12/05/16.
+ * bundeskanzler4711 on 12/05/16.
  */
 class OpenRtbJsonFactoryHelper {
 
@@ -107,22 +107,20 @@ class OpenRtbJsonFactoryHelper {
   }
 
   static String readFile(String fileName) {
-    byte[] encoded = new byte[0];
-    try {
-      encoded = Files.readAllBytes(Paths.get(fileName));
-    } catch (IOException aE) {
-      aE.printStackTrace();
-    }
-    return new String(encoded, StandardCharsets.UTF_8);
+    InputStream inputStream = OpenRtbJsonFactoryHelper.class.getClassLoader().getResourceAsStream(fileName);
+    Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name()).useDelimiter("\\A");
+    return scanner.hasNext() ? scanner.next() : "";
   }
 
-  static boolean writeFile(String fileName, String content) {
-    try (PrintWriter out = new PrintWriter(fileName)) {
-      out.println(content);
-      return true;
-    } catch (FileNotFoundException aE) {
-      aE.printStackTrace();
+  static void writeFile(String fileName, String content) {
+    final OutputStream outputStream;
+    try {
+      outputStream = new FileOutputStream(fileName);
+      final PrintStream printStream = new PrintStream(outputStream, true, StandardCharsets.UTF_8.name());
+      printStream.print(content);
+      printStream.close();
+    } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+      ex.printStackTrace();
     }
-    return false;
   }
 }

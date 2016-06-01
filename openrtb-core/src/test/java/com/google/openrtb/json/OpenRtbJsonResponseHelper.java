@@ -15,67 +15,67 @@ import static com.google.common.truth.Truth.assertThat;
 
 /**
  * Test helper class, to be used for generating and comparing Json test data <p> Created by
- * sschlegel on 12/05/16.
+ * bundeskanzler4711 on 12/05/16.
  */
 class OpenRtbJsonResponseHelper {
 
   /**
    * Response Json string containing <p> - native part as adm string field
    */
-  static final String RESPONSE_SHORT_NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_NOROOT_STRING.json");
+  static final String RESPONSE_SHORT_NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("RESPONSE_SHORT_NOROOT_STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object
    */
-  static final String RESPONSE_SHORT_NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_NOROOT_OBJECT.json");
+  static final String RESPONSE_SHORT_NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("RESPONSE_SHORT_NOROOT_OBJECT.json");
 
   /**
    * Response Json string containing <p> - native part as adm string field <p> - root native
    * enabled
    */
-  static final String RESPONSE_SHORT_ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_ROOT___STRING.json");
+  static final String RESPONSE_SHORT_ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("RESPONSE_SHORT_ROOT___STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object <p> - root native
    * enabled
    */
-  static final String RESPONSE_SHORT_ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_ROOT___OBJECT.json");
+  static final String RESPONSE_SHORT_ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("RESPONSE_SHORT_ROOT___OBJECT.json");
 
   /**
    * Response Json string containing <p> - native part as adm string field <p> - nearly all possible
    * fields filled
    */
-  static final String RESPONSE_FULL__NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__NOROOT_STRING.json");
+  static final String RESPONSE_FULL__NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("RESPONSE_FULL__NOROOT_STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object <p> - nearly all
    * possible fields filled
    */
-  static final String RESPONSE_FULL__NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__NOROOT_OBJECT.json");
+  static final String RESPONSE_FULL__NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("RESPONSE_FULL__NOROOT_OBJECT.json");
 
   /**
    * Response Json string <p> - containing native part as adm string field <p> - root native enabled
    * <p> - nearly all possible fields filled
    */
-  static final String RESPONSE_FULL__ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__ROOT___STRING.json");
+  static final String RESPONSE_FULL__ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("RESPONSE_FULL__ROOT___STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object <p> - root native
    * enabled <p> - nearly all possible fields filled
    */
-  static final String RESPONSE_FULL__ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__ROOT___OBJECT.json");
+  static final String RESPONSE_FULL__ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("RESPONSE_FULL__ROOT___OBJECT.json");
 
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OpenRtbJsonResponseHelper.class);
 
   public static void testJsonGeneratedFiles() throws IOException {
-    assertThat(generateJson(false, false, false).trim()).isEqualTo(RESPONSE_SHORT_NOROOT_STRING.trim());
-    assertThat(generateJson(false, false, true).trim()).isEqualTo(RESPONSE_SHORT_NOROOT_OBJECT.trim());
-    assertThat(generateJson(false, true, false).trim()).isEqualTo(RESPONSE_SHORT_ROOT___STRING.trim());
-    assertThat(generateJson(false, true, true).trim()).isEqualTo(RESPONSE_SHORT_ROOT___OBJECT.trim());
-    assertThat(generateJson(true, false, false).trim()).isEqualTo(RESPONSE_FULL__NOROOT_STRING.trim());
-    assertThat(generateJson(true, false, true).trim()).isEqualTo(RESPONSE_FULL__NOROOT_OBJECT.trim());
-    assertThat(generateJson(true, true, false).trim()).isEqualTo(RESPONSE_FULL__ROOT___STRING.trim());
-    assertThat(generateJson(true, true, true).trim()).isEqualTo(RESPONSE_FULL__ROOT___OBJECT.trim());
+    assertThat(generateJson(false, false, false)).isEqualTo(RESPONSE_SHORT_NOROOT_STRING);
+    assertThat(generateJson(false, false, true)).isEqualTo(RESPONSE_SHORT_NOROOT_OBJECT);
+    assertThat(generateJson(false, true, false)).isEqualTo(RESPONSE_SHORT_ROOT___STRING);
+    assertThat(generateJson(false, true, true)).isEqualTo(RESPONSE_SHORT_ROOT___OBJECT);
+    assertThat(generateJson(true, false, false)).isEqualTo(RESPONSE_FULL__NOROOT_STRING);
+    assertThat(generateJson(true, false, true)).isEqualTo(RESPONSE_FULL__NOROOT_OBJECT);
+    assertThat(generateJson(true, true, false)).isEqualTo(RESPONSE_FULL__ROOT___STRING);
+    assertThat(generateJson(true, true, true)).isEqualTo(RESPONSE_FULL__ROOT___OBJECT);
   }
 
   public static void main(String[] args) throws IOException {
@@ -87,15 +87,6 @@ class OpenRtbJsonResponseHelper {
     OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__NOROOT_OBJECT.json", generateJson(true, false, true));
     OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__ROOT___STRING.json", generateJson(true, true, false));
     OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__ROOT___OBJECT.json", generateJson(true, true, true));
-
-    logger.info("RESPONSE_SHORT_NOROOT_STRING: " + RESPONSE_SHORT_NOROOT_STRING);
-    logger.info("RESPONSE_SHORT_NOROOT_OBJECT: " + RESPONSE_SHORT_NOROOT_OBJECT);
-    logger.info("RESPONSE_SHORT_ROOT___STRING: " + RESPONSE_SHORT_ROOT___STRING);
-    logger.info("RESPONSE_SHORT_ROOT___OBJECT: " + RESPONSE_SHORT_ROOT___OBJECT);
-    logger.info("RESPONSE_FULL__NOROOT_STRING: " + RESPONSE_FULL__NOROOT_STRING);
-    logger.info("RESPONSE_FULL__NOROOT_OBJECT: " + RESPONSE_FULL__NOROOT_OBJECT);
-    logger.info("RESPONSE_FULL__ROOT___STRING: " + RESPONSE_FULL__ROOT___STRING);
-    logger.info("RESPONSE_FULL__ROOT___OBJECT: " + RESPONSE_FULL__ROOT___OBJECT);
   }
 
   /**
