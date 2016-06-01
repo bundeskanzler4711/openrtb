@@ -70,6 +70,7 @@ import com.google.openrtb.TestUtil;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -363,6 +364,9 @@ public class OpenRtbJsonTest {
     OpenRtbJsonFactory jsonFactory = newJsonFactory();
     OpenRtb.BidRequest bidRequest = jsonFactory.newReader().readBidRequest(requestString);
     String jsonRequNativeStr = jsonFactory.setRootNativeField(rootNative).newWriter().writeBidRequest(bidRequest);
+    ObjectMapper mapper = new ObjectMapper();
+    Object json = mapper.readValue(jsonRequNativeStr, Object.class);
+    jsonRequNativeStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
     assertThat(jsonRequNativeStr).isEqualTo(requestString);
   }
 
@@ -371,7 +375,7 @@ public class OpenRtbJsonTest {
     logger.info(jsonResp);
     jsonFactory.setStrict(false).newWriter().writeBidResponse(resp);
     OpenRtb.BidResponse resp2 = jsonFactory.newReader().readBidResponse(jsonResp);
-    assertThat(resp2).isEqualTo(resp);
+    assertThat("KUCKUCK_" + resp2).isEqualTo(resp);
     jsonFactory.setStrict(false).newReader().readBidResponse(jsonResp);
     return jsonResp;
   }
