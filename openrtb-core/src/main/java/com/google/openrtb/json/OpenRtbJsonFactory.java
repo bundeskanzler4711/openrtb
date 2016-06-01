@@ -65,7 +65,7 @@ public class OpenRtbJsonFactory {
     this.rootNativeField = rootNativeField;
     this.extReaders = extReaders == null ? LinkedHashMultimap.create() : extReaders;
     this.extWriters = extWriters == null ? new LinkedHashMap<>() : extWriters;
-    this.forceReadNativeAsObject = false;
+    forceReadNativeAsObject = false;
   }
 
   /**
@@ -82,7 +82,7 @@ public class OpenRtbJsonFactory {
     this.extWriters = ImmutableMap.copyOf(Maps.transformValues(config.extWriters,
         (Map<String, Map<String, OpenRtbJsonExtWriter<?>>> map) ->
             ImmutableMap.copyOf(Maps.transformValues(map, map2 -> ImmutableMap.copyOf(map2)))));
-    this.forceReadNativeAsObject = config.forceReadNativeAsObject;
+    forceReadNativeAsObject = config.forceReadNativeAsObject;
   }
 
   /**
@@ -117,6 +117,14 @@ public class OpenRtbJsonFactory {
   }
 
   /**
+   * Sets object native field generation mode.
+   */
+  public final OpenRtbJsonFactory setForceReadNativeAsObject(final boolean forceReadNativeAsObject) {
+    this.forceReadNativeAsObject = forceReadNativeAsObject;
+    return this;
+  }
+
+  /**
    * Returns {@code true} for strict mode, {@code false} lenient mode.
    */
   public final boolean isStrict() {
@@ -128,6 +136,13 @@ public class OpenRtbJsonFactory {
    */
   public final boolean isRootNativeField() {
     return rootNativeField;
+  }
+
+  /**
+   * Returns {@code true} for object native field mode, {@code false} if not.
+   */
+  public boolean isForceReadNativeAsObject() {
+    return forceReadNativeAsObject;
   }
 
   /**
@@ -246,13 +261,5 @@ public class OpenRtbJsonFactory {
       jsonFactory = new JsonFactory();
     }
     return jsonFactory;
-  }
-
-  public boolean isForceReadNativeAsObject() {
-    return forceReadNativeAsObject;
-  }
-
-  public void setForceReadNativeAsObject(final boolean aForceReadNativeAsObject) {
-    forceReadNativeAsObject = aForceReadNativeAsObject;
   }
 }
