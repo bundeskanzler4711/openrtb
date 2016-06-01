@@ -8,12 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static java.util.Arrays.asList;
 
@@ -25,69 +20,70 @@ class OpenRtbJsonRequestHelper {
   /**
    * Request Json string containing <p> - native part as adm string field
    */
-  static final String REQUEST__SHORT_NOROOT_STRING = readFile("src/test/resources/REQUEST__SHORT_NOROOT_STRING.json");
+  static final String REQUEST__SHORT_NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__SHORT_NOROOT_STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object
    */
-  static final String REQUEST__SHORT_NOROOT_OBJECT = readFile("src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json");
+  static final String REQUEST__SHORT_NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json");
 
   /**
    * Request Json string containing <p> - native part as adm string field <p> - root native enabled
    */
-  static final String REQUEST__SHORT_ROOT___STRING = readFile("src/test/resources/REQUEST__SHORT_ROOT___STRING.json");
+  static final String REQUEST__SHORT_ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__SHORT_ROOT___STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object <p> - root native
    * enabled
    */
-  static final String REQUEST__SHORT_ROOT___OBJECT =readFile("src/test/resources/REQUEST__SHORT_ROOT___OBJECT.json");
+  static final String REQUEST__SHORT_ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__SHORT_ROOT___OBJECT.json");
 
   /**
    * Request Json string containing <p> - native part as adm string field <p> - nearly all possible
    * fields filled
    */
-  static final String REQUEST__FULL__NOROOT_STRING =readFile("src/test/resources/REQUEST__FULL__NOROOT_STRING.json");
+  static final String REQUEST__FULL__NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__FULL__NOROOT_STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object <p> - nearly all possible
    * fields filled
    */
-  static final String REQUEST__FULL__NOROOT_OBJECT =readFile("src/test/resources/REQUEST__FULL__NOROOT_OBJECT.json");
+  static final String REQUEST__FULL__NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__FULL__NOROOT_OBJECT.json");
 
   /**
    * Request Json string <p> - containing native part as adm string field <p> - root native enabled
    * <p> - nearly all possible fields filled
    */
-  static final String REQUEST__FULL__ROOT___STRING =readFile("src/test/resources/REQUEST__FULL__ROOT___STRING.json");
+  static final String REQUEST__FULL__ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__FULL__ROOT___STRING.json");
 
   /**
    * Request Json string containing <p> - native part as adm_native object <p> - root native enabled
    * <p> - nearly all possible fields filled
    */
-  static final String REQUEST__FULL__ROOT___OBJECT =readFile("src/test/resources/REQUEST__FULL__ROOT___OBJECT.json");
+  static final String REQUEST__FULL__ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/REQUEST__FULL__ROOT___OBJECT.json");
 
   private static final Logger logger = LoggerFactory.getLogger(OpenRtbJsonRequestHelper.class);
 
   public static void main(String[] args) throws IOException {
-    writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_STRING.json", generateJson(false, false, false));
-    writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json", generateJson(false, false, true));
-    writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_ROOT___STRING.json", generateJson(false, true, false));
-    writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_ROOT___OBJECT.json", generateJson(false, true, true));
-    writeFile("openrtb-core/src/test/resources/REQUEST__FULL__NOROOT_STRING.json", generateJson(true, false, false));
-    writeFile("openrtb-core/src/test/resources/REQUEST__FULL__NOROOT_OBJECT.json", generateJson(true, false, true));
-    writeFile("openrtb-core/src/test/resources/REQUEST__FULL__ROOT___STRING.json", generateJson(true, true, false));
-    writeFile("openrtb-core/src/test/resources/REQUEST__FULL__ROOT___OBJECT.json", generateJson(true, true, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_STRING.json", generateJson(false, false, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_NOROOT_OBJECT.json", generateJson(false, false, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_ROOT___STRING.json", generateJson(false, true, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__SHORT_ROOT___OBJECT.json", generateJson(false, true, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__FULL__NOROOT_STRING.json", generateJson(true, false, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__FULL__NOROOT_OBJECT.json", generateJson(true, false, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__FULL__ROOT___STRING.json", generateJson(true, true, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/REQUEST__FULL__ROOT___OBJECT.json", generateJson(true, true, true));
 
     logger.info("REQUEST__SHORT_NOROOT_STRING: " + REQUEST__SHORT_NOROOT_STRING);
     logger.info("REQUEST__SHORT_NOROOT_OBJECT: " + REQUEST__SHORT_NOROOT_OBJECT);
-    logger.info("REQUEST__SHORT_ROOT___STRING: " + REQUEST__SHORT_NOROOT_OBJECT);
-    logger.info("REQUEST__SHORT_ROOT___OBJECT: " + REQUEST__SHORT_NOROOT_OBJECT);
-    logger.info("REQUEST__FULL__NOROOT_STRING: " + REQUEST__SHORT_NOROOT_OBJECT);
-    logger.info("REQUEST__FULL__NOROOT_OBJECT: " + REQUEST__SHORT_NOROOT_OBJECT);
-    logger.info("REQUEST__FULL__ROOT___STRING: " + REQUEST__SHORT_NOROOT_OBJECT);
-    logger.info("REQUEST__FULL__ROOT___OBJECT: " + REQUEST__SHORT_NOROOT_OBJECT);
+    logger.info("REQUEST__SHORT_ROOT___STRING: " + REQUEST__SHORT_ROOT___STRING);
+    logger.info("REQUEST__SHORT_ROOT___OBJECT: " + REQUEST__SHORT_ROOT___OBJECT);
+    logger.info("REQUEST__FULL__NOROOT_STRING: " + REQUEST__FULL__NOROOT_STRING);
+    logger.info("REQUEST__FULL__NOROOT_OBJECT: " + REQUEST__FULL__NOROOT_OBJECT);
+    logger.info("REQUEST__FULL__ROOT___STRING: " + REQUEST__FULL__ROOT___STRING);
+    logger.info("REQUEST__FULL__ROOT___OBJECT: " + REQUEST__FULL__ROOT___OBJECT);
   }
+
 
   /**
    * Json generator method, using these Parameters:
@@ -399,24 +395,6 @@ class OpenRtbJsonRequestHelper {
     return nativeRequest;
   }
 
-  static String readFile(String fileName) {
-    byte[] encoded = new byte[0];
-    try {
-      encoded = Files.readAllBytes(Paths.get(fileName));
-    } catch (IOException aE) {
-      aE.printStackTrace();
-    }
-    return new String(encoded, StandardCharsets.UTF_8);
-  }
 
-  static boolean writeFile(String fileName, String content) {
-    try (PrintWriter out = new PrintWriter(fileName)) {
-      out.println(content);
-      return true;
-    } catch (FileNotFoundException aE) {
-      aE.printStackTrace();
-    }
-    return false;
-  }
 }
 

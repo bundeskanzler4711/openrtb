@@ -3,6 +3,8 @@ package com.google.openrtb.json;
 import com.google.openrtb.OpenRtb;
 import com.google.openrtb.TestExt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
@@ -18,152 +20,69 @@ class OpenRtbJsonResponseHelper {
   /**
    * Response Json string containing <p> - native part as adm string field
    */
-  static final String RESPONSE_SHORT_NOROOT_STRING =
-      "{\"id\":\"resp\",\"seatbid\":[{\"bid\":[{\"id\":\"bid\",\"impid\":\"imp\",\"price\":19.95,\"adid\":\"adid\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm\":\"{\\\"ver\\\":\\\"1.0\\\",\\\"link\\\":{},\\\"imptrackers\\\":[" +
-          "\\\"http://my.imp.tracker\\\"]}\",\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid\",\"crid\":\"crid\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat\"}],\"bidid\":\"bid\"," +
-          "\"cur\":\"USD\",\"customdata\":\"mydata\",\"nbr\":1}";
+  static final String RESPONSE_SHORT_NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_NOROOT_STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object
    */
-  static final String RESPONSE_SHORT_NOROOT_OBJECT =
-      "{\"id\":\"resp\",\"seatbid\":[{\"bid\":[{\"id\":\"bid\",\"impid\":\"imp\",\"price\":19.95,\"adid\":\"adid\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm_native\":{\"ver\":\"1.0\",\"link\":{},\"imptrackers\":[" +
-          "\"http://my.imp.tracker\"]},\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid\",\"crid\":\"crid\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat\"}],\"bidid\":\"bid\"," +
-          "\"cur\":\"USD\",\"customdata\":\"mydata\",\"nbr\":1}";
+  static final String RESPONSE_SHORT_NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_NOROOT_OBJECT.json");
 
   /**
    * Response Json string containing <p> - native part as adm string field <p> - root native
    * enabled
    */
-  static final String RESPONSE_SHORT_ROOT___STRING =
-      "{\"id\":\"resp\",\"seatbid\":[{\"bid\":[{\"id\":\"bid\",\"impid\":\"imp\",\"price\":19.95,\"adid\":\"adid\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm\":\"{\\\"native\\\":{\\\"ver\\\":\\\"1.0\\\",\\\"link\\\":{}," +
-          "\\\"imptrackers\\\":[\\\"http://my.imp.tracker\\\"]}}\",\"adomain\":[\"http://myads.com\"]," +
-          "\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid\",\"crid\":\"crid\"," +
-          "\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}]," +
-          "\"seat\":\"seat\"}],\"bidid\":\"bid\",\"cur\":\"USD\",\"customdata\":\"mydata\",\"nbr\":1}";
+  static final String RESPONSE_SHORT_ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_ROOT___STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object <p> - root native
    * enabled
    */
-  static final String RESPONSE_SHORT_ROOT___OBJECT =
-      "{\"id\":\"resp\",\"seatbid\":[{\"bid\":[{\"id\":\"bid\",\"impid\":\"imp\",\"price\":19.95,\"adid\":\"adid\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm_native\":{\"native\":{\"ver\":\"1.0\",\"link\":{},\"imptrackers\":[" +
-          "\"http://my.imp.tracker\"]}},\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid\",\"crid\":\"crid\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat\"}],\"bidid\":\"bid\"," +
-          "\"cur\":\"USD\",\"customdata\":\"mydata\",\"nbr\":1}";
+  static final String RESPONSE_SHORT_ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_SHORT_ROOT___OBJECT.json");
 
   /**
    * Response Json string containing <p> - native part as adm string field <p> - nearly all possible
    * fields filled
    */
-  static final String RESPONSE_FULL__NOROOT_STRING =
-      "{\"id\":\"resp1\",\"seatbid\":[{\"bid\":[{\"id\":\"bid1\",\"impid\":\"imp1\",\"price\":19.95,\"adid\":\"adid1\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm\":\"{\\\"ver\\\":\\\"1.0\\\",\\\"link\\\":{},\\\"imptrackers\\\":[" +
-          "\\\"http://my.first.imp.tracker\\\"]}\",\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid1\",\"crid\":\"crid1\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal1\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat1\",\"group\":0,\"ext\":{" +
-          "\"test1\":\"data1\"}},{\"bid\":[{\"id\":\"bid2\",\"impid\":\"imp2\",\"price\":19.95,\"adid\":\"adid2\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm\":\"{\\\"ver\\\":\\\"2.0\\\",\\\"link\\\":{},\\\"imptrackers\\\":[" +
-          "\\\"http://my.first.imp.tracker\\\"]}\",\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid2\",\"crid\":\"crid2\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal2\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}},{\"id\":\"bid2\",\"impid\":\"imp3\"," +
-          "\"price\":19.95,\"adid\":\"adid3\",\"nurl\":\"http://iwon.com\",\"adomain\":[\"http://myads.com\"]," +
-          "\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid3\",\"crid\":\"crid3\"," +
-          "\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal3\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}]," +
-          "\"seat\":\"seat2\",\"group\":1,\"ext\":{\"test1\":\"data1\"}}],\"bidid\":\"bid1\",\"cur\":\"USD\"," +
-          "\"customdata\":\"mydata\",\"nbr\":1,\"ext\":{\"test1\":\"data1\",\"test2arr\":[{\"test2\":\"data2\"},{" +
-          "\"test2\":\"data2\"}],\"test2a\":{\"test2\":\"data2\"},\"test2b\":{\"test2\":\"data2\"},\"test3\":99," +
-          "\"test4arr\":[10,20]}}";
+  static final String RESPONSE_FULL__NOROOT_STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__NOROOT_STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object <p> - nearly all
    * possible fields filled
    */
-  static final String RESPONSE_FULL__NOROOT_OBJECT =
-      "{\"id\":\"resp1\",\"seatbid\":[{\"bid\":[{\"id\":\"bid1\",\"impid\":\"imp1\",\"price\":19.95,\"adid\":\"adid1\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm_native\":{\"ver\":\"1.0\",\"link\":{},\"imptrackers\":[" +
-          "\"http://my.first.imp.tracker\"]},\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid1\",\"crid\":\"crid1\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal1\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat1\",\"group\":0," +
-          "\"ext\":{\"test1\":\"data1\"}},{\"bid\":[{\"id\":\"bid2\",\"impid\":\"imp2\",\"price\":19.95,\"adid\":\"adid2\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm_native\":{\"ver\":\"2.0\",\"link\":{}," +
-          "\"imptrackers\":[\"http://my.first.imp.tracker\"]},\"adomain\":[\"http://myads.com\"]," +
-          "\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid2\",\"crid\":\"crid2\"," +
-          "\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal2\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}},{" +
-          "\"id\":\"bid2\",\"impid\":\"imp3\",\"price\":19.95,\"adid\":\"adid3\",\"nurl\":\"http://iwon.com\"," +
-          "\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\"," +
-          "\"cid\":\"cid3\",\"crid\":\"crid3\",\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal3\",\"w\":100,\"h\":80," +
-          "\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat2\",\"group\":1,\"ext\":{\"test1\":\"data1\"}}]," +
-          "\"bidid\":\"bid1\",\"cur\":\"USD\",\"customdata\":\"mydata\",\"nbr\":1,\"ext\":{\"test1\":\"data1\"," +
-          "\"test2arr\":[{\"test2\":\"data2\"},{\"test2\":\"data2\"}],\"test2a\":{\"test2\":\"data2\"},\"test2b\":{" +
-          "\"test2\":\"data2\"},\"test3\":99,\"test4arr\":[10,20]}}";
+  static final String RESPONSE_FULL__NOROOT_OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__NOROOT_OBJECT.json");
 
   /**
    * Response Json string <p> - containing native part as adm string field <p> - root native enabled
    * <p> - nearly all possible fields filled
    */
-  static final String RESPONSE_FULL__ROOT___STRING =
-      "{\"id\":\"resp1\",\"seatbid\":[{\"bid\":[{\"id\":\"bid1\",\"impid\":\"imp1\",\"price\":19.95,\"adid\":\"adid1\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm\":\"{\\\"native\\\":{\\\"ver\\\":\\\"1.0\\\",\\\"link\\\":{}," +
-          "\\\"imptrackers\\\":[\\\"http://my.first.imp.tracker\\\"]}}\",\"adomain\":[\"http://myads.com\"]," +
-          "\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid1\",\"crid\":\"crid1\"," +
-          "\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal1\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}]," +
-          "\"seat\":\"seat1\",\"group\":0,\"ext\":{\"test1\":\"data1\"}},{\"bid\":[{\"id\":\"bid2\",\"impid\":\"imp2\"," +
-          "\"price\":19.95,\"adid\":\"adid2\",\"nurl\":\"http://iwon.com\",\"adm\":\"{\\\"native\\\":{" +
-          "\\\"ver\\\":\\\"2.0\\\",\\\"link\\\":{},\\\"imptrackers\\\":[\\\"http://my.first.imp.tracker\\\"]}}\"," +
-          "\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\"," +
-          "\"cid\":\"cid2\",\"crid\":\"crid2\",\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal2\",\"w\":100," +
-          "\"h\":80,\"ext\":{\"test1\":\"data1\"}},{\"id\":\"bid2\",\"impid\":\"imp3\",\"price\":19.95,\"adid\":\"adid3\"," +
-          "\"nurl\":\"http://iwon.com\",\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid3\",\"crid\":\"crid3\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal3\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat2\",\"group\":1," +
-          "\"ext\":{\"test1\":\"data1\"}}],\"bidid\":\"bid1\",\"cur\":\"USD\",\"customdata\":\"mydata\",\"nbr\":1," +
-          "\"ext\":{\"test1\":\"data1\",\"test2arr\":[{\"test2\":\"data2\"},{\"test2\":\"data2\"}],\"test2a\":{" +
-          "\"test2\":\"data2\"},\"test2b\":{\"test2\":\"data2\"},\"test3\":99,\"test4arr\":[10,20]}}";
+  static final String RESPONSE_FULL__ROOT___STRING = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__ROOT___STRING.json");
 
   /**
    * Response Json string containing <p> - native part as adm_native object <p> - root native
    * enabled <p> - nearly all possible fields filled
    */
-  static final String RESPONSE_FULL__ROOT___OBJECT =
-      "{\"id\":\"resp1\",\"seatbid\":[{\"bid\":[{\"id\":\"bid1\",\"impid\":\"imp1\",\"price\":19.95,\"adid\":\"adid1\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm_native\":{\"native\":{\"ver\":\"1.0\",\"link\":{},\"imptrackers\":[" +
-          "\"http://my.first.imp.tracker\"]}},\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid1\",\"crid\":\"crid1\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal1\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}],\"seat\":\"seat1\",\"group\":0," +
-          "\"ext\":{\"test1\":\"data1\"}},{\"bid\":[{\"id\":\"bid2\",\"impid\":\"imp2\",\"price\":19.95,\"adid\":\"adid2\"," +
-          "\"nurl\":\"http://iwon.com\",\"adm_native\":{\"native\":{\"ver\":\"2.0\",\"link\":{},\"imptrackers\":[" +
-          "\"http://my.first.imp.tracker\"]}},\"adomain\":[\"http://myads.com\"],\"bundle\":\"com.google.testapp\"," +
-          "\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid2\",\"crid\":\"crid2\",\"cat\":[\"IAB10-2\"],\"attr\":[12]," +
-          "\"dealid\":\"deal2\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}},{\"id\":\"bid2\",\"impid\":\"imp3\"," +
-          "\"price\":19.95,\"adid\":\"adid3\",\"nurl\":\"http://iwon.com\",\"adomain\":[\"http://myads.com\"]," +
-          "\"bundle\":\"com.google.testapp\",\"iurl\":\"http://mycdn.com/ad.gif\",\"cid\":\"cid3\",\"crid\":\"crid3\"," +
-          "\"cat\":[\"IAB10-2\"],\"attr\":[12],\"dealid\":\"deal3\",\"w\":100,\"h\":80,\"ext\":{\"test1\":\"data1\"}}]," +
-          "\"seat\":\"seat2\",\"group\":1,\"ext\":{\"test1\":\"data1\"}}],\"bidid\":\"bid1\",\"cur\":\"USD\"," +
-          "\"customdata\":\"mydata\",\"nbr\":1,\"ext\":{\"test1\":\"data1\",\"test2arr\":[{\"test2\":\"data2\"},{" +
-          "\"test2\":\"data2\"}],\"test2a\":{\"test2\":\"data2\"},\"test2b\":{\"test2\":\"data2\"},\"test3\":99," +
-          "\"test4arr\":[10,20]}}";
+  static final String RESPONSE_FULL__ROOT___OBJECT = OpenRtbJsonFactoryHelper.readFile("src/test/resources/RESPONSE_FULL__ROOT___OBJECT.json");
 
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OpenRtbJsonResponseHelper.class);
 
   public static void main(String[] args) throws IOException {
-    logger.info("RESPONSE_SHORT_NOROOT_STRING = " + generateJson(false, false, false));
-    logger.info("RESPONSE_SHORT_NOROOT_OBJECT = " + generateJson(false, false, true));
-    logger.info("RESPONSE_SHORT_ROOT___STRING = " + generateJson(false, true, false));
-    logger.info("RESPONSE_SHORT_ROOT___OBJECT = " + generateJson(false, true, true));
-    logger.info("RESPONSE_FULL__NOROOT_STRING = " + generateJson(true, false, false));
-    logger.info("RESPONSE_FULL__NOROOT_OBJECT = " + generateJson(true, false, true));
-    logger.info("RESPONSE_FULL__ROOT___STRING = " + generateJson(true, true, false));
-    logger.info("RESPONSE_FULL__ROOT___OBJECT = " + generateJson(true, true, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_SHORT_NOROOT_STRING.json", generateJson(false, false, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_SHORT_NOROOT_OBJECT.json", generateJson(false, false, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_SHORT_ROOT___STRING.json", generateJson(false, true, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_SHORT_ROOT___OBJECT.json", generateJson(false, true, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__NOROOT_STRING.json", generateJson(true, false, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__NOROOT_OBJECT.json", generateJson(true, false, true));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__ROOT___STRING.json", generateJson(true, true, false));
+    OpenRtbJsonFactoryHelper.writeFile("openrtb-core/src/test/resources/RESPONSE_FULL__ROOT___OBJECT.json", generateJson(true, true, true));
+
+    logger.info("RESPONSE_SHORT_NOROOT_STRING: " + RESPONSE_SHORT_NOROOT_STRING);
+    logger.info("RESPONSE_SHORT_NOROOT_OBJECT: " + RESPONSE_SHORT_NOROOT_OBJECT);
+    logger.info("RESPONSE_SHORT_ROOT___STRING: " + RESPONSE_SHORT_ROOT___STRING);
+    logger.info("RESPONSE_SHORT_ROOT___OBJECT: " + RESPONSE_SHORT_ROOT___OBJECT);
+    logger.info("RESPONSE_FULL__NOROOT_STRING: " + RESPONSE_FULL__NOROOT_STRING);
+    logger.info("RESPONSE_FULL__NOROOT_OBJECT: " + RESPONSE_FULL__NOROOT_OBJECT);
+    logger.info("RESPONSE_FULL__ROOT___STRING: " + RESPONSE_FULL__ROOT___STRING);
+    logger.info("RESPONSE_FULL__ROOT___OBJECT: " + RESPONSE_FULL__ROOT___OBJECT);
   }
 
   /**
@@ -176,7 +95,9 @@ class OpenRtbJsonResponseHelper {
    */
   private static String generateJson(final boolean isFull, final boolean isRootNative, final boolean isNativeObject)
       throws IOException {
-    return generateResponse(isFull, isRootNative, isNativeObject);
+    ObjectMapper mapper = new ObjectMapper();
+    Object json = mapper.readValue(generateResponse(isFull, isRootNative, isNativeObject), Object.class);
+    return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
   }
 
   private static String generateResponse(final boolean isFull, final boolean isRootNative,

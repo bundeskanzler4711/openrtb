@@ -384,7 +384,10 @@ public class OpenRtbJsonTest {
     OpenRtbJsonFactory jsonFactory = newJsonFactory().setForceNativeAsObject(nativeAsObject);
     OpenRtb.BidResponse bidResponse1 = jsonFactory.newReader().readBidResponse(responseString);
     String jsonRespNativeStr = jsonFactory.setRootNativeField(rootNative).newWriter().writeBidResponse(bidResponse1);
-    assertThat(jsonRespNativeStr).isEqualTo(responseString);
+    ObjectMapper mapper = new ObjectMapper();
+    Object json = mapper.readValue(jsonRespNativeStr, Object.class);
+    jsonRespNativeStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+    assertThat(jsonRespNativeStr.trim()).isEqualTo(responseString.trim());
   }
 
   static OpenRtbJsonFactory newJsonFactory() {

@@ -8,6 +8,13 @@ import com.fasterxml.jackson.core.JsonFactory;
 
 import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * Test helper class, to be used for generating and comparing Json test data <p> Created by
  * sschlegel on 12/05/16.
@@ -16,7 +23,6 @@ class OpenRtbJsonFactoryHelper {
 
   static final Test.Test1 test1 = Test.Test1.newBuilder().setTest1("data1").build();
   static final Test.Test2 test2 = Test.Test2.newBuilder().setTest2("data2").build();
-  private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OpenRtbJsonFactoryHelper.class);
 
   static OpenRtbJsonFactory newJsonFactory(boolean isRootNative, boolean isNativeObject) {
     return OpenRtbJsonFactory.create()
@@ -100,4 +106,23 @@ class OpenRtbJsonFactoryHelper {
         .register(new Test4Writer(), Integer.class, OpenRtb.BidResponse.class, "testResponse4");
   }
 
+  static String readFile(String fileName) {
+    byte[] encoded = new byte[0];
+    try {
+      encoded = Files.readAllBytes(Paths.get(fileName));
+    } catch (IOException aE) {
+      aE.printStackTrace();
+    }
+    return new String(encoded, StandardCharsets.UTF_8);
+  }
+
+  static boolean writeFile(String fileName, String content) {
+    try (PrintWriter out = new PrintWriter(fileName)) {
+      out.println(content);
+      return true;
+    } catch (FileNotFoundException aE) {
+      aE.printStackTrace();
+    }
+    return false;
+  }
 }
