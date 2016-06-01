@@ -74,7 +74,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -309,11 +308,10 @@ public class OpenRtbJsonReader extends AbstractOpenRtbJsonReader {
     switch (fieldName) {
       case "request": {
           OpenRtbNativeJsonReader nativeReader = factory().newNativeReader();
-          if(factory().isForceReadNativeAsObject()) {
+          if(factory().isForceNativeAsObject()) {
             nativ.setRequestNative(nativeReader.readNativeRequest(par));
           } else {
-            nativ.setRequestNative(nativeReader.readNativeRequest(new CharArrayReader(
-                par.getTextCharacters(), par.getTextOffset(), par.getTextLength())));
+            nativ.setRequestNative(nativeReader.readNativeRequest(par.getText()));
           }
         }
         break;

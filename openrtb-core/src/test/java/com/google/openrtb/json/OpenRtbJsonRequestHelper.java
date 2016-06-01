@@ -126,10 +126,12 @@ class OpenRtbJsonRequestHelper {
     // The BidRequest builder
     final OpenRtb.BidRequest.Builder bidRequestBuilder = OpenRtb.BidRequest.newBuilder();
 
+    final OpenRtbJsonFactory openRtbJsonFactory = OpenRtbJsonFactoryHelper.newJsonFactory(isRootNative, isNativeObject);
+
     if (isNativeObject) {
       nativeBuilder.setRequestNative(generateNativeRequest());
     } else {
-      nativeBuilder.setRequest(OpenRtbJsonFactoryHelper.newJsonFactory(isRootNative)
+      nativeBuilder.setRequest(openRtbJsonFactory
           .newNativeWriter()
           .writeNativeRequest(generateNativeRequest().build()));
     }
@@ -170,7 +172,7 @@ class OpenRtbJsonRequestHelper {
         .setDevice(deviceBuilder)
         .setUser(userBuilder);
 
-    return OpenRtbJsonFactoryHelper.newJsonFactory(isRootNative)
+    return openRtbJsonFactory
         .newWriter()
         .writeBidRequest(bidRequestBuilder.build());
   }
@@ -185,6 +187,8 @@ class OpenRtbJsonRequestHelper {
     final OpenRtb.BidRequest.User.Builder userBuilder = OpenRtb.BidRequest.User.newBuilder();
     final OpenRtb.BidRequest.Regs.Builder regsBuilder = OpenRtb.BidRequest.Regs.newBuilder();
     final OpenRtb.BidRequest.Builder bidRequestBuilder = OpenRtb.BidRequest.newBuilder();
+
+    final OpenRtbJsonFactory openRtbJsonFactory = OpenRtbJsonFactoryHelper.newJsonFactory(isRootNative, isNativeObject);
 
     firstImpressionBuilder.setId("imp1")
         .setBanner(OpenRtb.BidRequest.Imp.Banner.newBuilder()
@@ -285,7 +289,7 @@ class OpenRtbJsonRequestHelper {
     if (isNativeObject) {
       nativeBuilder.setRequestNative(generateNativeRequest());
     } else {
-      nativeBuilder.setRequest(OpenRtbJsonFactoryHelper.newJsonFactory(isRootNative)
+      nativeBuilder.setRequest(openRtbJsonFactory
           .newNativeWriter()
           .writeNativeRequest(generateNativeRequest().build()));
     }
@@ -380,7 +384,7 @@ class OpenRtbJsonRequestHelper {
         .setExtension(TestExt.testRequest2, OpenRtbJsonFactoryHelper.test2)
         .setExtension(TestExt.testRequest1, OpenRtbJsonFactoryHelper.test1);
 
-    return OpenRtbJsonFactoryHelper.newJsonFactory(isRootNative)
+    return openRtbJsonFactory
         .newWriter()
         .writeBidRequest(bidRequestBuilder.build());
   }

@@ -3,7 +3,7 @@
   "imp" : [ {
     "id" : "imp1",
     "native" : {
-      "request_native" : {
+      "request" : {
         "ver" : "1",
         "layout" : 2,
         "adunit" : 4,

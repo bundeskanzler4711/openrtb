@@ -18,9 +18,10 @@ class OpenRtbJsonFactoryHelper {
   static final Test.Test2 test2 = Test.Test2.newBuilder().setTest2("data2").build();
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OpenRtbJsonFactoryHelper.class);
 
-  static OpenRtbJsonFactory newJsonFactory(final boolean isRootNative) {
+  static OpenRtbJsonFactory newJsonFactory(boolean isRootNative, boolean isNativeObject) {
     return OpenRtbJsonFactory.create()
         .setRootNativeField(isRootNative)
+        .setForceNativeAsObject(isNativeObject)
         .setJsonFactory(new JsonFactory())
         // BidRequest Readers
         .register(new Test1Reader<>(TestExt.testRequest1), OpenRtb.BidRequest.Builder.class)
