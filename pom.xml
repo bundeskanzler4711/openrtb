@@ -28,6 +28,7 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
   <issueManagement>
     <system>Github</system>
     <url>https://github.com/google/openrtb/issues</url>
